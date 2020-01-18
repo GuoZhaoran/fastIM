@@ -1,3 +1,4 @@
+github可下载查看源代码:[源代码链接](https://github.com/GuoZhaoran/fastIM)
 ## 1.时代的里程碑——即时通信
 
 前阵子看了《创业时代》,电视剧的剧情大概是这样的:IT工程师郭鑫年与好友罗维与投行精英那蓝等人一起，踏上互联网创业之路。创业开发的是一款叫做“魔晶”的IM产品。郭鑫年在第一次创业失败后，离了婚，还欠了很多外债，骑着自行车经历了西藏一次生死诀别之后产生了灵感，想要创作一款IM产品“魔晶”，“魔晶”的初衷是为了增加人与人之间的感情，虽然剧情纯属虚构，但确实让人浮想QQ当初的设想是不是就是这样的呢？
@@ -266,7 +267,7 @@ Go实现静态资源服务器也很简单，只需要调用http.FileServer就可
 
 <center class="half">
     <img src="https://user-gold-cdn.xitu.io/2020/1/18/16fb8326841d2b07?w=568&h=956&f=png&s=32195" width="200"/>
-    <img src="https://user-gold-cdn.xitu.io/2020/1/18/16fb8329af742ad2?w=566&h=954&f=png&s=54763" width="200"/><img src="图片链接" width="200"/>
+    <img src="https://user-gold-cdn.xitu.io/2020/1/18/16fb8329af742ad2?w=566&h=954&f=png&s=54763" width="200"/>
 </center>
 
 ### 4.3 注册、登录和鉴权
@@ -789,7 +790,7 @@ func sendMsg(userId int64, msg []byte) {
 
 <center class="half">
     <img src="https://user-gold-cdn.xitu.io/2020/1/18/16fb85df3fad2b59?w=566&h=992&f=png&s=83885" width="200"/>
-    <img src="https://user-gold-cdn.xitu.io/2020/1/18/16fb85e18d870051?w=562&h=1004&f=png&s=84831" width="200"/><img src="图片链接" width="200"/>
+    <img src="https://user-gold-cdn.xitu.io/2020/1/18/16fb85e18d870051?w=562&h=1004&f=png&s=84831" width="200"/>
 </center>
 
 ### 4.5 发送表情和图片
@@ -907,6 +908,21 @@ func main() {
 ## 6.结束语
 
 不知道大家有没有发现，使用Go搭建一个IM系统比使用其他语言要简单很多，而且具备更好的拓展性和性能(并没有吹嘘Go的意思)。在当今这个时代，5G将要普及，流量不再昂贵，IM系统已经广泛渗入到了用户日常生活中。对于程序员来说，搭建一个IM系统不再是困难的事情, 如果读者根据本文的思路，理解Websocket，Copy代码，运行程序,应该用不了半天的时间就能上手这样一个IM系统。IM系统是一个时代，从QQ、微信到现在的人工智能，都广泛应用了即时通信，围绕即时通信，又可以做更多产品布局。笔者写本文的目的就是想要帮助更多人了解IM，帮助一些开发者快速的搭建一个应用，燃起大家学习网络编程知识的兴趣，希望的读者能有所收获，能将IM系统应用到更多的产品布局中。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
