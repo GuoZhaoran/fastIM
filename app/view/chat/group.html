@@ -1,0 +1,19 @@
+{{define "/chat/group.shtml"}}
+<div id="tabbar-group" class="mui-control-content" v-show="win=='main'">
+    <header class="mui-bar mui-bar-nav">
+        <h1 class="mui-title">群聊</h1>
+    </header>
+    <ul class="mui-table-view mui-table-view-chevron">
+        <li v-for="item in communitys" class="mui-table-view-cell mui-media" @tap="groupmsg(item)">
+            <a class="mui-navigate-right">
+                <img class="mui-media-object mui-pull-left" :src="item.icon">
+                <div class="mui-media-body">
+                    <span v-text="item.name+'('+item.id+')'"></span>
+                    <p class='mui-ellipsis' v-text="item.memo"></p>
+                </div>
+            </a>
+        </li>
+
+    </ul>
+</div>
+{{end}}

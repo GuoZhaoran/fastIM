@@ -1,0 +1,42 @@
+{{define "/chat/profile.shtml"}}
+<div id="tabbar-profile" class="mui-control-content" v-show="win=='main'">
+    <header class="mui-bar mui-bar-nav">
+        <h1 class="mui-title">个人中心</h1>
+    </header>
+    <ul class="mui-table-view mui-table-view-chevron">
+        <li class="mui-table-view-cell mui-media">
+            <a href="update.shtml" class="mui-navigate-right" >
+                <img class="mui-media-object mui-pull-left head-img" id="head-img" :src="profile.avatar||'/asset/images/avatar0.png'">
+                <div class="mui-media-body">
+                    <span v-text="profile.nickname">betatech</span>
+                    <p class='mui-ellipsis' v-text="profile.memo">专业可靠的IM解决方案专家</p>
+                </div>
+            </a>
+        </li>
+    </ul>
+    <ul class="mui-table-view">
+        <li @click="addfriend" class="mui-table-view-cell">
+            <a class="mui-navigate-right">
+                添加好友
+            </a>
+        </li>
+        <li @click="joincomunity" class="mui-table-view-cell">
+            <a class="mui-navigate-right">
+                加入社群
+            </a>
+        </li>
+        <li  class="mui-table-view-cell">
+            <a class="mui-navigate-right" href="/createcom.shtml">
+                创建社群
+            </a>
+        </li>
+    </ul>
+    <ul class="mui-table-view" style="margin-top: 25px;">
+        <li @click="quit" class="mui-table-view-cell">
+            <a style="text-align: center;color: #FF3B30;">
+                退出登录
+            </a>
+        </li>
+    </ul>
+</div>
+{{end}}

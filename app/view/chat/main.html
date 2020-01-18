@@ -1,0 +1,90 @@
+{{define "/chat/main.shtml"}}
+    <div v-show="win!='main'">
+        <header class="mui-bar mui-bar-nav">
+            <a class="mui-icon mui-icon-left-nav mui-pull-left" @tap="win='main'"></a>
+            <h1 class="mui-title" v-text="title"></h1>
+        </header>
+        <div id="convo" data-from="Sonu Joshi">
+
+            <ul class="chat-thread">
+                <!--群聊且item.dstid=当前msgcontext.dstid
+               <span v-text="JSON.stringify(msglist)"></span>
+                 -->
+                <!--单聊且是他发的item.userid=msgcontext.dstid && 发给我的 item.dstid=myid 或者是我item.userid= myid发的,&&发给他的item.dstid= msgcontext.dstid 我发给他的  -->
+                <li class="chat " :class="item.ismine?'mine':'other'" v-for="item in msglist"
+                    v-if="item.msg.cmd==msgcontext.cmd && (( item.msg.cmd==10 &&  (item.ismine? item.msg.dstid==msgcontext.dstid : item.msg.dstid==msgcontext.userid )) || ( item.msg.cmd==11 &&  (item.msg.dstid==msgcontext.dstid))) ">
+
+                    <div>
+                        <img class="avatar" :src="item.user.avatar ||'/asset/images/avatar0.png'"/>
+                    </div>
+
+                    <span></span>
+                    <div class="content">
+                        <div v-if="item.msg.media==1" v-text="item.msg.content"></div>
+                        <img class="pic" v-if="item.msg.media==4" :src="item.msg.url.replace('/chat', '')"/>
+                        <div v-if="item.msg.media==3" @tap="playaudio(item.msg.url)">
+                            <img class="audio" src="/asset/images/audiom.png"/>
+                            <span v-text="item.msg.amount"></span>
+                        </div>
+                    </div>
+                </li>
+
+
+            </ul>
+        </div>
+        <div class="flex-container">
+            <div class="item-1" @tap="txtstat='audio'" v-if="txtstat=='kbord'">
+                <img src="/asset/images/audio.png"/>
+            </div>
+            <div class="item-1" @tap="txtstat='kbord'" v-if="txtstat=='audio'">
+                <img src="/asset/images/kbord.png"/>
+            </div>
+            <div class="item-2" v-if="txtstat=='kbord'">
+                <input placeholder="这里写点啥" class="text" type="text" v-model="txtmsg"/>
+            </div>
+            <div class="item-2" v-if="txtstat=='audio'">
+                <input value="请按住说话" type="button" class="text" style="margin-top: 5px;width: 100%; text-align: center"
+                       @click="disableNotice">
+                </input>
+            </div>
+            <div class="item-3" @tap="panelstat='doutu'">
+                <img src="/asset/images/smile.png"/>
+            </div>
+            <div class="item-4" v-if="!txtmsg" @tap="panelstat='more'">
+                <img src="/asset/images/more.png"/>
+            </div>
+            <div class="item-4" v-if="!!txtmsg" @tap="sendtxtmsg(txtmsg)">
+                <img src="/asset/images/send.png"/>
+            </div>
+        </div>
+        <div id="panels" style="display: flex">
+            <div v-if="panelstat=='doutu'">
+                <div class="doutures">
+                    <div @tap="sendpicmsg(item)" class="res" v-for="item in doutu.choosed.assets">
+                        <img :class="doutu.choosed.size ||'small'" :src="item"/>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="panelstat=='more'" class="plugins">
+                <div class="plugin" @tap="dispatchplugin(item)" v-for="item in plugins">
+                    <img :src="item.icon"/>
+                    <div v-html="item.slot"></div>
+                    <p v-text="item.name"></p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <audio id="audio" style="display: none"></audio>
+    <audio id="audio4play" style="display: none"></audio>
+    <audio id="video" style="display: none"></audio>
+    <audio id="video4play" style="display: none"></audio>
+
+    <div id='sound-alert' class="rprogress" v-show="showprocess">
+        <div class="rschedule"></div>
+        <div class="r-sigh">!</div>
+        <div id="audio-tips" class="rsalert">手指上滑，取消发送</div>
+    </div>
+{{end}}

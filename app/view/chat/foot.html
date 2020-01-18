@@ -1,0 +1,351 @@
+{{define "/chat/foot.shtml"}}
+    <script>
+        function upload(dom) {
+            uploadfile("attach/upload", dom, function (res) {
+                if (res.code == 0) {
+                    app.sendpicmsg(res.data)
+                }
+            })
+        }
+        function userId() {
+            return parseInt(util.parseQuery("id"))
+        }
+        var app = new Vue(
+            {
+                el: "#pageapp",
+                data: {
+                    usermap: {},
+                    friends: [],
+                    communitys: [],
+                    profile: {
+                        avatar: "",
+                        nickname: "",
+                        memo: "",
+                    },
+                    webSocket: {},
+                    win: "main",
+                    txtmsg: "",
+                    panelstat: "kbord",
+                    txtstat: "kbord",
+                    title: "",
+                    doutu: {
+                        config: {
+                            "baseurl": "/asset/plugins/doutu/",
+                            "pkgids": ["mkgif", "emoj"]
+                        },
+                        packages: [],
+                        choosed: {"pkgid": "emoj", "assets": [], "size": "small"}
+                    },
+                    msglist: [],
+
+                    msgcontext: {
+                        dstid: 10,
+                        cmd: 10,
+                        userid: userId()
+                    },
+                    plugins: [
+                        {
+                            icon: "/asset/images/upload.png",
+                            name: "照片",
+                            id: "upload",
+                            slot: "<input accept=\"image/gif,image/jpeg,,image/png\" type=\"file\" onchange=\"upload(this)\" class='upload' />"
+                        },
+
+                        {
+                            icon: "/asset/images/camera.png",
+                            name: "拍照",
+                            id: "camera",
+                            slot: "<input accept=\"image/*\" capture=\"camera\" type=\"file\" onchange=\"upload(this)\" class='upload' />"
+                        },
+                        {
+                            icon: "/asset/images/audiocall.png",
+                            name: "语音",
+                            id: "audiocall"
+                        },
+                        {
+                            icon: "/asset/images/videocall.png",
+                            name: "视频",
+                            id: "videocall"
+                        },
+                        {
+                            icon: "/asset/images/redpackage.png",
+                            name: "红包",
+                            id: "redpackage"
+                        },
+                        {
+                            icon: "/asset/images/exchange.png",
+                            name: "转账",
+                            id: "exchange"
+                        },
+                        {
+                            icon: "/asset/images/address.png",
+                            name: "地址",
+                            id: "address"
+                        },
+                        {
+                            icon: "/asset/images/person.png",
+                            name: "名片",
+                            id: "person"
+                        }
+
+                    ],
+                    timer: 0,
+                    recorder: {},
+                    allChunks: [],
+                    iscomplete: false,
+                    duration: 0,
+                    showprocess: false,
+                },
+                created: function () {
+                    this.loadfriends();
+                    this.loadcommunitys();
+                    this.loaddoutures();
+                    var user = userInfo()
+                    if (!!user) {
+                        this.profile.avatar = user.avatar;
+                        this.profile.nickname = user.nickname;
+                        this.profile.memo = user.memo;
+                    }
+
+                    this.initwebsocket()
+
+                },
+                mounted: function () {
+
+                },
+                methods: {
+                    dispatchplugin: function (item) {
+                        switch (item.id) {
+                            case "upload":
+                            case "camera":
+
+                                break;
+                            default:
+                                mui.toast("系统暂不支持,请自行扩展")
+                        }
+                    },
+                    disableNotice: function () {
+                        mui.toast("系统暂不支持,请自行扩展")
+                    },
+                    reset: function () {
+                        this.panelstat = "kbord";
+                        this.txtstat = "kbord";
+                        this.txtmsg = "";
+                    },
+                    createmsgcontext: function () {
+                        return JSON.parse(JSON.stringify(this.msgcontext))
+                    },
+                    loaddoutures: function () {
+                        var res = [];
+                        var config = this.doutu.config;
+                        for (var i in config.pkgids) {
+                            res[config.pkgids[i]] = (config.baseurl + "/" + config.pkgids[i] + "/info.json")
+                        }
+                        var that = this;
+                        for (var id in res) {
+                            //console.log("res[i]",id,res[id])
+                            post(res[id], {}, function (pkginfo) {
+                                //console.log("post res[i]",id,res[id],pkginfo)
+                                var baseurl = config.baseurl + "/" + pkginfo.id + "/"
+                                for (var j in pkginfo.assets) {
+                                    pkginfo.assets[j] = baseurl + pkginfo.assets[j];
+                                }
+                                pkginfo.icon = baseurl + pkginfo.icon;
+                                that.doutu.packages.push(pkginfo)
+                                if (that.doutu.choosed.pkgid == pkginfo.id) {
+                                    that.doutu.choosed.assets = pkginfo.assets;
+                                }
+
+                            })
+                        }
+                    },
+                    showmsg: function (user, msg) {
+                        var data = {}
+                        data.ismine = userId() == msg.userid;
+                        //console.log(data.ismine,userId(),msg.userid)
+                        data.user = user;
+                        data.msg = msg;
+                        this.msglist = this.msglist.concat(data)
+                        this.reset();
+                        var that = this;
+                        that.timer = setTimeout(function () {
+                            window.scrollTo(0, document.getElementById("convo").offsetHeight);
+                            clearTimeout(that.timer)
+                        }, 100)
+
+                    },
+                    sendtxtmsg: function (txt) {
+                        //{id:1,userid:2,dstid:3,cmd:10,media:1,content:"hello"}
+                        var msg = this.createmsgcontext();
+                        msg.media = 1;
+                        msg.content = txt;
+                        this.showmsg(userInfo(), msg);
+                        this.webSocket.send(JSON.stringify(msg))
+                    },
+                    sendpicmsg: function (picurl) {
+                        //{id:1,userid:2,dstid:3,cmd:10,media:4,url:"http://www.baidu.com/a/log,jpg"}
+                        var msg = this.createmsgcontext();
+                        msg.media = 4;
+                        msg.url = picurl;
+                        this.showmsg(userInfo(), msg)
+                        this.webSocket.send(JSON.stringify(msg))
+                    },
+                    singlemsg: function (user) {
+                        //console.log(user)
+                        this.win = "single";
+                        this.title = "和" + user.nickname + "聊天中";
+                        this.msgcontext.dstid = parseInt(user.id);
+                        this.msgcontext.cmd = 10;
+                    },
+                    groupmsg: function (group) {
+                        this.win = "group";
+                        this.title = group.name;
+                        this.msgcontext.dstid = parseInt(group.id);
+                        this.msgcontext.cmd = 11;
+                    },
+                    loaduserinfo: function (userid, cb) {
+                        userid = "" + userid;
+                        var userinfo = this.usermap[userid];
+                        if (!userinfo) {
+                            post("user/find", {id: parseInt(userid)}, function (res) {
+                                cb(res.data);
+                                this.usermap[userid] = res.data;
+                            }.bind(this))
+                        } else {
+                            cb(userinfo)
+                        }
+                    },
+                    onmessage: function (data) {
+                        this.loaduserinfo(data.userid, function (user) {
+                            this.showmsg(user, data)
+                        }.bind(this))
+
+                    },
+                    initwebsocket: function () {
+                        var url = "ws://" + location.host + "/chat?id=" + userId() + "&token=" + util.parseQuery("token");
+                        this.webSocket = new WebSocket(url);
+                        //消息处理
+                        this.webSocket.onmessage = function (evt) {
+                            //{"data":"}",...}
+                            if (evt.data.indexOf("}") > -1) {
+                                this.onmessage(JSON.parse(evt.data));
+                            } else {
+                                console.log("recv<==" + evt.data)
+                            }
+                        }.bind(this)
+                        //关闭回调
+                        this.webSocket.onclose = function (evt) {
+                            console.log(evt.data)
+                        }
+                        //出错回调
+                        this.webSocket.onerror = function (evt) {
+                            console.log(evt.data)
+                        }
+                        /*{
+                            this.webSocket.send()
+                        }*/
+                    },
+                    sendmsg: function () {
+
+                    },
+                    loadfriends: function () {
+                        var that = this;
+                        post("contact/loadfriend", {userid: userId()}, function (res) {
+                            that.friends = res.rows || [];
+                            var usermap = this.usermap;
+                            for (var i in res.rows) {
+                                var k = "" + res.rows[i].id
+                                usermap[k] = res.rows[i];
+                            }
+                            this.usermap = usermap;
+                        }.bind(this))
+                    },
+                    loadcommunitys: function () {
+                        var that = this;
+                        post("contact/loadcommunity", {userid: userId()}, function (res) {
+                            that.communitys = res.rows || [];
+                        })
+                    },
+                    addfriend: function () {
+                        var that = this;
+                        //prompt
+                        mui.prompt('', '请输入好友手机号', '加好友', ['取消', '确认'], function (e) {
+                            if (e.index == 1) {
+                                var reg = /^1[3|4|5|7|8][0-9]{9}$/; //验证规则
+                                var flag = reg.test(e.value); //true
+                                if (!flag) {
+                                    mui.toast('请输入合法的手机号');
+                                } else {
+                                    that._addfriend(e.value)
+                                }
+                            } else {
+                                //mui.toast('您取消了入库');
+                            }
+                        }, 'div');
+                        document.querySelector('.mui-popup-input input').type = 'text';
+                    },
+                    _addfriend: function (dstobj) {
+                        var that = this
+                        post("contact/addfriend", {dstname: dstobj, userid: userId()}, function (res) {
+                            if (res.code == 0) {
+                                mui.toast("添加成功");
+                                that.loadfriends();
+                                that.locationUrl("/index.shtml")
+                            } else {
+                                mui.toast(res.msg);
+                            }
+                        })
+                    },
+                    _joincomunity: function (dstobj) {
+                        var that = this;
+                        post("contact/joincommunity", {dstname: dstobj, "userid": userId()}, function (res) {
+                            if (res.code == 0) {
+                                mui.toast("添加成功");
+                                that.loadcommunitys();
+                                that.locationUrl("/index.shtml")
+                            } else {
+                                mui.toast(res.msg);
+                            }
+                        })
+                    },
+                    joincomunity: function () {
+                        var that = this;
+                        mui.prompt('', '请输入群名称', '加群', ['取消', '确认'], function (e) {
+                            if (e.index == 1) {
+                                console.log(e.value)
+                                if (e.value.length == 0) {
+                                    mui.toast('格式错误');
+                                } else {
+                                    that._joincomunity(e.value)
+                                }
+                            } else {
+                                //mui.toast('您取消了入库');
+                            }
+                        }, 'div');
+                        document.querySelector('.mui-popup-input input').type = 'text';
+                    },
+                    quit: function () {
+                        sessionStorage.removeItem("userid")
+                        sessionStorage.removeItem("userinfo")
+                        location.href = "login.shtml"
+                    },
+                    locationUrl: function (url) {
+                        var dst = url + "?id=" + userId()
+                            + "&token=" + userInfo().token;
+                        location.href = dst;
+                    }
+                },
+                watch: {
+                    "win": function (n, o) {
+                        // console.log("watch",o,n)
+                        if (n != "main") {
+                            document.getElementById("menubar").style.display = "none";
+                        } else {
+                            document.getElementById("menubar").style.display = "block";
+                        }
+                    }
+                }
+            }
+        )
+    </script>
+{{end}}

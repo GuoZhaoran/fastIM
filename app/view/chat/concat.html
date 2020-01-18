@@ -1,0 +1,21 @@
+{{define "/chat/concat.shtml"}}
+<div id="tabbar-concat" class="mui-control-content mui-active" v-show="win=='main'">
+    <header class="mui-bar mui-bar-nav">
+
+        <h1 class="mui-title">联系人</h1>
+    </header>
+    <ul class="mui-table-view mui-table-view-chevron">
+        <li v-for="item in friends" class="mui-table-view-cell mui-media" @tap="singlemsg(item)">
+            <a class="mui-navigate-right">
+                <img class="mui-media-object mui-pull-left" :src="item.avatar ||'/asset/images/avatar0.png'">
+                <div class="mui-media-body">
+                    <span v-text="item.nickname"></span>
+                    <p class='mui-ellipsis' v-text="item.memo"></p>
+                </div>
+            </a>
+        </li>
+
+    </ul>
+
+</div>
+{{end}}

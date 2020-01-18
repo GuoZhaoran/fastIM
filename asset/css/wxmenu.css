@@ -1,0 +1,817 @@
+
+.nav-full-title{ list-style:none; padding:0;}
+.nav-full-title li{ width:100%; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;}
+/*控制图片的大小*/
+.huoDong-media img{ width:100px; height:100px;}
+.font-hdtime{ font-size:14px; color:#000;}
+
+
+/*页面默认设置*/
+body{
+  font-family:"ff-tisa-web-pro-1",
+  "ff-tisa-web-pro-2",
+  "Lucida Grande",
+  "Helvetica Neue",
+  Helvetica,
+  Arial,
+  "Hiragino Sans GB",
+  "Hiragino Sans GB W3",
+  "WenQuanYi Micro Hei",
+  sans-serif;
+}
+/*解决win8 IE10 兼容  s*/
+@-webkit-viewport   { width: device-width; }
+@-moz-viewport      { width: device-width; }
+@-ms-viewport       { width: device-width; }
+@-o-viewport        { width: device-width; }
+@viewport           { width: device-width; }
+
+/*三大模块 共用样式*/
+body,html{ 
+
+  height:100%; 
+  background-color:#f5f5f5;
+  font-family: "Microsoft YaHei";
+}
+
+/*重置导航栏下拉消息选框*/
+.dropdown-menu{ 
+  min-width: 0;
+  width:auto;
+  padding:3px;
+  margin:10px 0px;
+}
+ul.dropdown-menu li div{
+  margin: 10px 0;
+  font-family: "宋体";
+}
+ul.dropdown-menu li div{
+  border-bottom: 1px dotted #ccc;
+}
+ /*导航条 搜索框宽度*/
+ #search-box .popover { max-width: none !important;}
+
+ /*自定义徽标 - 标签*/
+.badge-bq{
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 8px;
+  font-size: 12px;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: 10px;
+  background-color:#ececec;
+  color:#000;
+  font-family: "Microsoft YaHei";
+}
+.badge-zhiye{
+  border-radius: 4px !important;
+  color:#337ab7;
+  font-weight:blod;
+  cursor:default !important;
+}
+
+.badge-bq-huida-list{
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 6px;
+  font-size: 12px;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: 10px;
+  background-color:#ececec;
+  color:#000;
+  font-family: "Microsoft YaHei";
+  font-weight:normal;
+}
+
+.badge-bq:hover{
+  text-decoration:none;
+}
+
+.badge-shengyu{
+  font-family: 'Arial Normal', 'Arial';
+  color:#333;
+  background:#ffcc99;
+  padding:0 5px;
+  text-align:center;
+  font-size:14px;
+}
+.badge-msg{
+  font-family:"宋体";
+  color:#fefefe;
+  background-color:#000;
+}
+
+.badge-more{
+  margin-top:10px;
+  color:#111;
+  padding:0 !important;
+}
+a.badge-more:hover {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+	border-radius:25%;
+	background-color:#e4e4e4; !important;
+}
+
+.hide-hidden{
+    visibility:hidden;
+}
+
+.color-red{color:red;}
+
+.color-15c{ color:#1155cc;}
+
+.color-58{ color:#585858;}
+
+.color-heise{color:#000; }
+
+.color-gray{color:gray; }
+
+.color-black{color:#000; font-family:"黑体";}
+
+.pointer{
+  cursor:pointer;
+}
+.pointer:hover{
+  text-decoration:none;  
+}
+ /*自定义徽标样式 start */
+.badge-self{ 
+
+  padding-left: 8px;
+  color:#fff;
+  background-size:100% 100%;
+  background-repeat: no-repeat;
+  background-image: url(../img/badgeBg.png);
+}
+
+/*面板鼠标悬停效果*/
+.panel-liubai{ margin-top:8px;}/*为panel区块顶部留白*/
+
+/*活动 问答 阅读 文字 的鼠标悬浮样式*/
+.btn-bankuai{
+
+  color:#000;
+  font-size:14px;
+}
+.btn-bankuai:hover{
+  color:#169bd5;
+  text-decoration:none;
+}
+/*textarea禁用重置*/
+.no-resize{resize:none;}
+
+.no-btmborder{ border-bottom:none;}
+
+.no-border{ border:none;}
+
+.no-row{ padding:0 15px;}
+
+/*名片 start*/
+.box-card{
+  position:absolute;
+  padding:0;
+  padding:0;
+  margin:0;
+  width:330px;
+  height:140px;
+  line-height:20px;
+  display:none;
+  font-size:14px;
+  z-index:10;
+}
+.panel-card-name{
+  top:34px;
+  left:94px;
+}
+  
+.popover-usercard-head{
+    /*名片距离父级的距离*/
+    margin-top:75px;
+}
+.popover-usercard-content{
+    font-family:"微软雅黑";
+    padding:0;
+}
+.panel-card{
+  width:330px;
+  overflow:hidden;
+}
+img.userCard-head{
+  width:60px;
+  height:60px;
+}
+.card-title{ 
+  font-size:16px;
+  color:#898989;
+}
+.card-footer{
+  background-color:#e6e6e6;
+}
+.card-info{
+  font-size:14px;
+  color:#505050;
+}
+
+.card-content{
+  font-size:14px;
+  color:#8a8a8b;
+}
+
+/*名片 end */
+.ico{
+  width: 16px;
+  height: 16px;
+  background-image: url("../img/all.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.ico-huodong-over{
+  background-image: url("../img/over.gif");
+  background-position: 98% 2px;
+  background-repeat:no-repeat;
+}
+
+.ico-huodong-nostarted{
+  background-image: url("../img/nostarted.gif");
+  background-position: 98% 2px;
+  background-repeat:no-repeat;
+}
+
+.ico-huodong-begun{
+  background-image: url("../img/begun.gif");
+  background-position: 98% 2px;
+  background-repeat:no-repeat;
+}
+
+.hd_stat{
+  position:relative;
+  height:100%;
+  width:10%;
+  right:0;
+  top:0;
+  background-color:#666;
+}
+
+/*图标志 水平翻转*/
+.ico-flx {
+    -moz-transform:scaleX(-1);
+    -webkit-transform:scaleX(-1);
+    -o-transform:scaleX(-1);
+    transform:scaleX(-1);
+    /*IE*/
+    filter:FlipH;
+}
+
+/*垂直翻转*/
+.ico-fly {
+    -moz-transform:scaleY(-1);
+    -webkit-transform:scaleY(-1);
+    -o-transform:scaleY(-1);
+    transform:scaleY(-1);
+    /*IE*/
+    filter:FlipV;
+}
+
+/*性别图标*/
+.ico-na{
+  background-position: -145px -110px;
+}
+.ico-nv{
+  background-position: -128px -110px;
+}
+.ico-dizhi{
+  background-position: -58px -110px;
+}
+.ico-guanzhu-a{
+  background-position: -40px -18px;
+}
+.ico-guanzhu-b{
+  background-position: -40px -34px;
+}
+.ico-zhuiwen{
+ background-position: -225px -128px; 
+}
+
+/*面板上的小件*/
+
+.box-wenti-xijie{ margin:5px 0 0 70px;}
+.xijie-time{ color:#ccc;}
+
+/*右侧导航区域 */
+.copyRight li{ padding:5px; }
+.nav-right p{ font-size:14px; font-weight:bold; line-height: 20px;}
+
+/*底部版权*/
+.navbar-yb-bottom .pull-right{
+  padding:0 8px;
+}
+.navbar-yb-bottom{
+  height:25px;
+  line-height:25px;
+}
+/*右侧导航区域 下的标签 start*/
+.box-biaoqian {
+  background-color:#fafafa;
+  border:1px solid #e6e6e6;
+}
+
+/*对字体图标大小的控制*/
+.font-logo{ font-size:10px; margin-right:2px;}
+
+/*免费标记样式*/
+sup span.mianfei{
+  background:#DFF0D8; 
+  padding:0 5px; 
+  border-radius:8px; 
+  display:inherit; 
+}
+
+/*返回顶部样式 start*/
+.backTop-arrow{
+  width: 0;
+  height: 0;
+  top: -1px;
+  margin-left:32%;
+  border: 9px solid transparent;
+  border-bottom-color: #aaa;
+}
+.backTop-stick{
+  width: 8px;
+  height: 14px;
+  top: 15px;
+  margin-left:43%;
+  border-radius: 1px;
+  background-color: #aaa;
+}
+.backTop{
+  position: fixed;
+  bottom: 113px;
+  right: 3%;
+  z-index: 333;
+  margin-left: 230px;
+  width:45px;
+  height:45px;
+  background-color:#ccc;  
+  border-radius:30%;
+  cursor:pointer;
+}
+
+/*返回顶部样式 end*/
+.full{
+  width:100%;
+  height:100%;
+}
+/*css自定义隐藏*/
+.hide-self{ display:none; list-style:none;}
+
+.font-block{ color:#000;}
+
+.point-red{ 
+  height: 3px;
+  width: 3px;
+  background-color: red;
+  border-radius: 50%;
+  float: left;
+  margin-top: 15px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.point-white{ 
+  height: 6px;
+  width: 6px;
+  background-color: none;
+  border-radius:50%;
+  float: left;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.check-width li{
+
+  width:100%;
+  line-height:30px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.float-left{ float:left;}
+.float-right{ float:right;}
+/*分割线*/
+.fenge-line,.splite-line{ width:100%; height:1px; border-bottom:1px solid #dbdcde; margin-bottom:8px;}
+/*搜索框容器 start*/
+
+#btn-search:active,#btn-search:hover{
+	border:none !important;
+	background:none !important;
+	background-color:none !important;
+}
+.popover{ 
+  border:none;
+  background-color:#f5f5f5;  
+}
+.popover-search{
+  width:600px;
+  left:600px;
+  margin-right:45px;
+  color:red;
+}
+#biaoqian-box{ display:none;}
+
+/*搜索框容器 end*/
+
+p.font-customer-zhengwen{ font-size:16px; font-family:"宋体"; color:#555;}
+/*文章详情的标题*/
+.box-yuedu-title{ color:#333; font-family:"微软雅黑"; background-color:#fefefe;}
+.box-yuedu-title sub{ font-family:"宋体"; }
+
+/*文章图片大小控制*/
+img.wenzhang{
+  width:100%;
+  height:300px;
+}
+.img-huodongaddr-biaozhi{
+  width:50%;
+}
+.img-huodongaddr-baidu{
+  width:60%;
+}
+.img-full{
+  width:100%; 
+  height:100%;
+}
+.box-huodong-jianjie{
+  padding-left:20px;
+  color:#223355;
+  font-family:"微软雅黑";
+  
+}
+.box-huodong-jianjie h2{
+
+  font-family:"黑体";
+}
+.huodong-zhuban-logo{
+  width:40px;
+}
+#box-huodong-xunwenform{
+  display:none;
+}
+.no-border{
+  border:none;
+}
+.alert-default{ border-bottom:1px solid #c0c0c0; padding-bottom:5px;}
+.mouse-help{ cursor:help;}
+
+.no-padding,.no-Padding{ padding:0 !important; }
+.no-margin{margin:0; !important}
+.no-margin-b{margin-bottom:0; border:none;}
+.no-margin-c{margin-bottom:0; margin-top:3px; border:none;}
+.no-margin-d{margin-bottom:0; margin-top:10px;}
+
+.badge-yb{
+  font-family:'Arial Normal','Arial';
+  text-align:center;
+  cursor:pointer;
+  padding:2px 6px;
+  margin:3px 0;
+  background-color:#f5f5f5;
+  border:1px solid #fff;
+  border-radius:35px;
+}
+.badge-yb:hover{
+  border:1px solid #c0c0c0;
+}
+
+.badge-yb-more{
+
+  font-family:'Arial Normal','Arial';
+  text-align:center;
+  cursor:pointer;
+  padding:4px 12px;
+  margin:6px 0;
+  background-color:#fafafa;
+  border:1px solid #E6E6E6;
+  border-radius:35px;
+}
+.badge-yb-more:hover{
+  text-decoration:none;
+}
+
+.badge-yb-nobg{
+  background-color:#f5f5f5;
+}
+.btn-win-jibao{padding:6px 40px;}
+.checkbox label.check-btn{
+  margin-right:30px;
+}
+.huodong-title{
+  font-size:20px;
+  font-family:"微软雅黑";
+  font-weight:bold;
+}
+
+.dibu-banquan{
+  height:30px; 
+  line-height:30px;
+  background:#ddd;
+  border-radius:6px;
+}
+
+.panel-huifu{
+  padding-left:40px;
+}
+.wenzhang-biaoti{
+  font-size:24px;
+  font-family:"Microsoft YaHei";
+  font-weight:700;
+}
+
+/*回答缩进*/
+.panel-huidalist,.panel-huidalist-a{ 
+  padding-left:3%;
+}
+.panel-huidalist-b{ 
+  margin-left:15px;
+}
+/*文章的标题*/
+span.text-info a{
+  font-size:14px;
+  font-family:"宋体";
+}
+
+/*鼠标悬浮提示框*/
+.tooltip-inner{
+  color:#000;
+  background-color:#f5f5f5;
+}
+.tooltip.in{
+  filter:alpha(opacity=100);
+  opacity:1.0;
+}
+/*活动相关横条*/
+.huodong-hengtiao{
+  padding:0px 15px;
+}
+.huodong-hengtiao .row{
+  background-color:#c0c0c0;
+}
+.huodong-hengtiao .row h3{
+  line-height:32px;
+}
+
+#win-update-pwd{
+  /*margin-top:5%;*/
+}
+
+/*活动描述加链接*/
+.media-body p a{
+
+  color: #000;
+  text-decoration:none;
+}
+.media-body p a:hover{
+  
+  text-decoration:none;
+}
+
+.loaddiv span{
+  color: white;
+  font-size: 16px;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+
+.loaddiv{
+   margin: 0px; 
+   padding: 0px; 
+   width: 100%; 
+   height: 100%; 
+   background-color: black; 
+   background-image: url(../img/loadicon.gif);
+   background-repeat: no-repeat;
+   background-position: 50% 0px;
+   background-size: 64px 64px;
+   position: fixed; 
+   left: 0px;
+   top: 0px;
+   opacity: 0.4;
+   z-index: 999999;
+   display: none;
+}
+.removeoverflow
+{
+	overflow: hidden;
+}
+
+/*地图内部组件*/
+.mapbox-shuoming{width:120px; line-height:1.5;font-size:13px;text-indent:2em;}
+.mapbox-img{ width:80px; float:right; }
+#box-pic-map{ height:250px; width:250px;}
+
+/*协议盒子*/
+
+.no-line{
+  text-decoration:none;
+}
+.no-line:hover{
+ text-decoration:none; 
+}
+.under-line{
+  text-decoration:underline;
+}
+.under-line:hover,.no-line:hover{
+  text-decoration:none;
+}
+.small-margin{
+  margin:5px 0;
+}
+/*百度地图 start */
+#box-baidu-map{
+	
+	background-img:url(../img/load.gif);
+	background-repeat: no-repeat;
+}
+/*百度地图 end */
+
+.indent{
+	text-indent:2em;
+}
+/*新手帮助 start*/
+.pic{
+  width:100%;
+  height:520px;
+}
+/*新手帮助 end*/
+
+/*验证码 */
+#refRcode{ width:100%; height:35px; background-repeat:no-repeat; background-position:8px;}
+
+/*文字处理*/
+.warp{
+  word-wrap:break-word;
+  white-space:normal;
+}
+
+/*提问相关*/
+.wenti-fenlei-box .popover-content{
+	height:325px;
+	overflow-y:auto;
+}
+#searchTable{ height:600px; overflow-y:auto;}
+
+
+
+.dropdown-menu {
+    min-width: 100%;
+}
+
+/* 页面与通用元素样式 	start */
+
+/* 页面与通用元素样式 	end */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*禁止切换输入法*/
+.no-zh{
+  ime-mode:Disabled;
+}
+
+.yb-disabled{
+  cursor: not-allowed;
+}
+/*菜单，按钮*/
+.yb-menu,.yb-btn{
+  font-family: "Microsoft YaHei";
+  font-size:16px;
+}
+/*一级加粗*/
+.yb-bold{
+    font-weight:bold;
+} 
+/*二级加粗*/
+.yb-bolder{
+    font-weight:bolder;
+} 
+/*主强调*/
+.yb-qiangdiao-a{
+    color:#3e3d3d;
+}
+/*次强调*/
+.yb-qiangdiao-b{
+    color:#898989;
+}
+.yb-biaoti{
+  color:#505050;
+}
+/*正文*/
+.yb-zhengwen{
+  font-family: '宋体 Regular', '宋体';
+  color:#8a8a8b;
+}
+/*字体*/
+.yb-yahei{
+  font-family: '微软雅黑';
+  color:#8a8a8b;
+}
+/*消息提示*/
+.yb-tip{
+  color:#a0a0a0;
+  background:#f86100; 
+  color:#fff;
+}
+/*警示性文本*/
+.yb-tip-warning{
+  color:#f86100;
+}
+/*提示性文本,带有链接*/
+.yb-tip a{
+  color:#29528b;
+  text-decoration:underline;
+}
+/*输入框高度*/
+.yb-input{
+  height:30px;
+}
+
+/*字体大小*/
+.yb-font6{ font-size:16px;}
+.yb-font4{ font-size:14px;}
+.yb-font2{ font-size:12px;}
+
+.head-self{
+  width:30px;
+  height:30px;
+}
+.yb-gongyue{
+  font-family:microsoft yahei;
+  border-top:none;
+  font-size: 20px;
+  line-height:48px;
+  background-color: #1392A1;
+  color: #000;
+  padding:0 8px;
+}
+
+html,body,p,h1,h2,h3,h4,h5,h6,form,input,textarea,select,button,fieldset,legend,img,ul,ol,li,dl,dt,dd,th,td,pre,blockquote{margin:0;padding:0}
+html{height:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-font-smoothing:antialiased}
+body{background: #FFF;color:#000;}
+body,button,input,select,textarea,h2,h3,h4,h5,h6{font:14px 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', '宋体', \5b8b\4f53, Tahoma, Arial}
+img,fieldset{border:0;vertical-align:middle}
+input{padding:0;margin:0;outline:none;}
+a{text-decoration:none;color:#4c4c4c;}
+a:hover{text-decoration:none;}
+ul,li,ol{list-style:none}
+img{max-width:100%;}
+.clear{clear:both;height:0;line-height:0;font-size:0;visibility:hidden;overflow:hidden}
+.clearfix:after{visibility: hidden;display: block;font-size: 0;content: " ";clear: both;height: 0;zoom:1;}
+.l{float:left;}.r{float:right;}
+/*reset样式重置*/
+
+.menwrap{position:fixed;right:0;bottom:0;width:100%;height:50px;z-index:4;}
+/*.btn-open-close{margin-top:5px;margin-right:5px;float:right;width:40px;height:40px;line-height:50px;border-radius:20px;-webkit-border-radius:20px;background:#000 url(ex11.png) no-repeat center center;background-size:20px 20px;opacity:0.5;box-sizing:border-box;-webkit-box-sizing:border-box;}*/
+.expan3{width:50px;height:50px;margin-top:0;margin-right:0;border-radius:0;-webkit-border-radius:0;opacity:1;border-top:1px solid #b3b3b3;border-left:1px solid #b3b3b3;background:#e6e6e6;box-sizing:border-box;-webkit-box-sizing:border-box;}
+/*.expan4{width:40px;height:40px;margin-left:4px;margin-top:4px;background:#000 url(ex11.png) no-repeat center center;background-size:20px 20px;border-radius:20px;-webkit-border-radius:20px;opacity:0.5;display:none;}*/
+.btn4{position:relative;z-index:3;bottom:0;border-top:1px solid #b3b3b3;background:#e6e6e6;text-align:center;box-sizing:border-box;-webkit-box-sizing:border-box;display:block;}
+.menu{position:relative;float:left;width:25%;height:50px;line-height:40px;background:#e6e6e6;border-right:1px solid #b3b3b3;box-sizing:border-box;-webkit-box-sizing:border-box;}
+.menu:last-child{border-right:none;}
+.new-sub{position:absolute;bottom:50px;z-index:-1;width:100%;box-sizing:border-box;-webkit-box-sizing:border-box;display:none;}
+.new-sub li{background:#e6e6e6;float:none;box-sizing:border-box;-webkit-box-sizing:border-box;border-bottom:1px solid #b3b3b3;border-top:1px solid #f2f2f2;}
+.new-sub li a{display:block;height:50px;line-height:50px;text-align:left;background:#e6e6e6;color:#333;border:none;text-align:center;font-size:16px;}
+.btn-fullbg{width:100%;height:100%;background:rgba(0,0,0,.2);position:fixed;top:0;left:0;z-index:2;display:none;}
+.sanjiao{position:absolute;bottom:5px;right:5px;width:0;height:0;border:5px solid transparent;border-right:5px solid #000;border-bottom:5px solid #000;opacity:.5;}
+.bt-name{font-size:16px;color:#000;}
+.bt-name a{display:block;font-size:16px;color:#000;}

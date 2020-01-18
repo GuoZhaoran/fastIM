@@ -1,0 +1,142 @@
+{{define "/register.shtml"}}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        {{template "/chat/head.shtml"}}
+    </head>
+    <body>
+
+    <header class="mui-bar mui-bar-nav">
+        <h1 class="mui-title">注册</h1>
+    </header>
+    <div class="mui-content" id="pageapp">
+        <ul class="mui-table-view mui-table-view-chevron">
+            <li class="mui-table-view-cell mui-media">
+                <a class="mui-navigate-right">
+                    <input style="width: 100%;height: 48px;position: absolute;opacity:0;" onchange="uploadthis(this)"
+                           accept="image/png,image/jpeg" type="file" class="mui-input-clear mui-input"
+                           placeholder="请输入群名称">
+
+                    <img id="head-img" :src="user.avatar" style="border-radius:50%;"
+                         class="mui-media-object mui-pull-right head-img">
+                    <div class="mui-media-body">
+                        头像
+                        <p class="mui-ellipsis">点击右侧上传头像</p></div>
+                </a>
+            </li>
+        </ul>
+        <form class="mui-input-group">
+            <div class="mui-input-row">
+                <label>手机</label>
+                <input v-model="user.mobile" type="text" class="mui-input-clear mui-input" placeholder="请输入手机号">
+            </div>
+
+            <div class="mui-input-row">
+                <label>密码</label>
+                <input v-model="user.passwd" id='password' type="password" class="mui-input-clear mui-input"
+                       placeholder="请输入密码">
+            </div>
+            <div class="mui-input-row">
+                <label>确认</label>
+                <input v-model="user.passwdr" id='password_confirm' type="password" class="mui-input-clear mui-input"
+                       placeholder="请确认密码">
+            </div>
+            <div class="mui-input-row">
+                <label>昵称</label>
+                <input v-model="user.nickname" type="text" class="mui-input-clear mui-input" placeholder="请输入昵称">
+            </div>
+            <div class="mui-input-row">
+                <label>性别</label>
+                <select v-model="user.sex" class="mui-input-clear mui-input">
+                    <option value="M">男</option>
+                    <option value="W">女</option>
+                </select>
+            </div>
+            <div class="mui-input-row">
+                <label>介绍</label>
+                <input v-model="user.memo" type="text" class="mui-input-clear mui-input" placeholder="简单描述一下你自己">
+            </div>
+
+        </form>
+        <div class="mui-content-padded">
+            <button @click="register" id='reg' class="mui-btn mui-btn-block mui-btn-primary">注册</button>
+        </div>
+
+    </div>
+    </body>
+    </html>
+    <script>
+        function uploadthis(dom) {
+            var data = new FormData();
+
+            for (let file of dom.files) {
+                data.append('file', file);
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+
+                    var res = JSON.parse(xhr.responseText);
+                    if (res.code != 0) {
+                        mui.toast(res.msg)
+                    } else {
+                        app.user.avatar = res.data;
+                        mui.toast("上传成功")
+                    }
+
+                }
+            };
+            xhr.open('POST', '/attach/upload');
+            xhr.send(data)
+        }
+
+        var app = new Vue(
+            {
+                el: "#pageapp",
+                data: {
+                    user: {
+                        mobile: "",
+                        passwd: "",
+                        passwdr: "",
+                        memo: "",
+                        avatar: "/asset/images/user.jpg",
+                        sex: ""
+                    },
+
+                },
+
+                methods: {
+                    register: function () {
+                        var that = this;
+                        if (!(/^1[3|4|5|7|8][0-9]\d{8}$/.test(this.user.mobile))) {
+                            mui.toast("手机号格式不对")
+                            return
+                        }
+                        if (!this.user.passwd) {
+                            mui.toast("请输入密码")
+                            return
+                        }
+                        if (this.user.passwd != this.user.passwdr) {
+                            mui.toast("前后输入不一致")
+                            return
+                        }
+                        post("user/register", this.user, function (res) {
+                            if (res.code != 0) {
+                                mui.toast(res.msg)
+                            } else {
+                                userInfo(res.data)
+                                userId(res.data.id)
+                                var url = "/index.shtml?id=" + res.data.id
+                                    + "&token=" + res.data.token
+                                location.href = url
+                            }
+
+                        })
+                    },
+
+                }
+            }
+        )
+    </script>
+{{end}}

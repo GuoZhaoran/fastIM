@@ -1,0 +1,133 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'Microsoft YaHei';
+	outline: none
+}
+
+ul {
+	list-style: none
+}
+
+#header {
+	width: 100%;
+	height: 74px;
+	border-bottom: 1px solid #e3e3e3;
+	background-color: #fff;
+	padding: 0px
+}
+
+#header .header-layout {
+	padding: 17px 0;
+	overflow: hidden
+}
+
+
+
+#header .header-layout .logo a {
+	float: left;
+	display: inline-block;
+	height: 40px;
+	width: 140px;
+	overflow: hidden;
+	text-indent: -999em
+}
+
+
+#header .header-layout .intl-logo a {
+	float: left;
+	display: inline-block;
+	height: 40px;
+	width: 170px;
+	overflow: hidden;
+	text-indent: -999em
+}
+
+#header .header-layout .logo-title {
+	float: left;
+	display: inline-block;
+	width: auto;
+	height: 30px;
+	line-height: 30px;
+	font-size: 20px;
+	font-weight: normal;
+	margin-top: 2px;
+	color: #3c3c3c
+}
+
+#header .header-layout .header-nav {
+	width: auto;
+	height: 14px;
+	float: right;
+	line-height: 14px;
+	margin-top: 10px
+}
+
+#header .header-layout .header-nav li {
+	float: left;
+	padding: 0 0 0 10px;
+	margin-right: 10px;
+	border-left: 1px solid #4d4d4d
+}
+
+#header .header-layout .header-nav li.nav-first {
+	border-left: 0
+}
+
+#header .header-layout .header-nav li a {
+	color: #666;
+	font-size: 12px;
+	text-decoration: none
+}
+
+.copyright-100 {
+	clear: both;
+	background: #fff;
+	border-top: 1px solid #e5e5e5
+}
+
+.copyright-100 .copyright {
+	text-align: center;
+	color: #999;
+	font-size: 12px;
+	padding: 35px 0 40px
+}
+
+.copyright-100 .copyright .img {
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	}
+
+.copyright-100 .copyright .img.img-1 {
+	background-position: 85px 113px
+}
+
+.copyright-100 .copyright .img.img-2 {
+	background-position: 85px 91px
+}
+
+.copyright-100 .copyright p {
+	padding: 5px 0
+}
+
+.copyright-100 .copyright p .link-item {
+	padding: 0 10px 0 5px
+}
+
+.copyright-100 .copyright p a {
+	padding: 0 5px;
+	color: #b3b3b3
+}
+
+.copyright-100 .copyright p.big {
+	font-size: 14px
+}
+
+.copyright-100 .copyright p.big a {
+	color: #666
+}
+
+.copyright-100 .copyright .link-wrap {
+	line-height: 24px
+}

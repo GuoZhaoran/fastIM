@@ -1,0 +1,273 @@
+{{define "/chat/head.shtml"}}
+<script>
+    function userId(id){
+        if(typeof  id =="undefined"){
+            var r = sessionStorage.getItem("userid");
+            if(!r){
+                return 0;
+            }else{
+                return parseInt(r)
+            }
+        }else{
+            sessionStorage.setItem("userid",id);
+        }
+    }
+    function userInfo(o){
+        if(typeof  o =="undefined"){
+            var r = sessionStorage.getItem("userinfo");
+            if(!!r){
+                return JSON.parse(r);
+            }else{
+                return null
+            }
+        }else{
+            sessionStorage.setItem("userinfo",JSON.stringify(o));
+        }
+    }
+    var url = location.href;
+    var isOpen = url.indexOf("/login")>-1 || url.indexOf("/register")>-1
+    if (!userId() && !isOpen){
+      // location.href = "login.shtml";
+    }
+
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>IM解决方案</title>
+<meta name="Description" content="专业的物联网行业方案专家，为广大新技术新产品新商业模式提供有力的解决方案支持">
+<meta name="Keywords" content="无人售货机，小程序，推送，群聊,单聊app">
+<link rel="stylesheet" href="/asset/plugins/mui/css/mui.css" />
+<link rel="stylesheet" href="/asset/css/chat.css" />
+<link rel="stylesheet" href="/asset/css/audio.css" />
+<script src="/asset/plugins/mui/js/mui.js" ></script>
+<script src="/asset/js/vue.min.js" ></script>
+<script src="/asset/js/util.js" ></script>
+<script>
+   function post(uri,data,fn){
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST","//"+location.host+"/"+uri, true);
+                // 添加http头，发送信息至服务器时内容编码类型
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 304)) {
+                        fn.call(this, JSON.parse(xhr.responseText));
+                    }
+                };
+                var _data=[];
+                if(!! userId()){
+                   // data["userid"] = userId();
+                }
+                for(var i in data){
+                    _data.push( i +"=" + encodeURI(data[i]));
+                }
+                xhr.send(_data.join("&"));
+            }
+            function uploadfile(uri,dom,fn){
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST","//"+location.host+"/"+uri, true);
+                // 添加http头，发送信息至服务器时内容编码类型
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 304)) {
+                        fn.call(this, JSON.parse(xhr.responseText));
+                    }
+                };
+                var _data=[];
+                var formdata = new FormData();
+                if(!! userId()){
+                    formdata.append("userid",userId());
+                }
+                formdata.append("file",dom.files[0])
+                xhr.send(formdata);
+            }
+   function uploadblob(uri,blob,filetype,fn){
+       var xhr = new XMLHttpRequest();
+       xhr.open("POST","//"+location.host+"/"+uri, true);
+       // 添加http头，发送信息至服务器时内容编码类型
+       xhr.onreadystatechange = function() {
+           if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 304)) {
+               fn.call(this, JSON.parse(xhr.responseText));
+           }
+       };
+       var _data=[];
+       var formdata = new FormData();
+       formdata.append("filetype",filetype);
+       if(!! userId()){
+           formdata.append("userid",userId());
+       }
+       formdata.append("file",blob)
+       xhr.send(formdata);
+   }
+       function uploadaudio(uri,blob,fn){
+                uploadblob(uri,blob,".mp3",fn)
+        }
+       function uploadvideo(uri,blob,fn){
+           uploadblob(uri,blob,".mp4",fn)
+       }
+</script>
+
+<style>
+    .flex-container{
+        display:flex;
+        flex-direction:row;
+        width:100%;
+        padding-top: 10px;
+        position: fixed;
+        bottom: 0px;
+        background-color: #FFFFFF;
+    }
+    .item-1{
+        height:50px;
+        height:50px;
+        padding: 5px 5px 5px 5px;
+    }
+    .item-2{
+                margin-right:auto;
+        height:50px;
+        width: 100%;
+    }
+    .txt{
+        margin-right:auto;
+    }
+    .item-3{
+        height:50px;
+        height:50px;
+        padding: 5px 5px 5px 5px;
+    }
+    .item-4{
+        height:50px;
+        height:50px;
+        padding: 5px 5px 5px 5px;
+    }
+
+     li.chat{
+         justify-content: flex-start;
+         align-items: flex-start;
+         display: flex;
+
+     }
+     .chat.other{
+         flex-direction: row;
+     }
+    .chat.mine{
+        flex-direction: row-reverse;
+    }
+    img.avatar{
+        width: 64px;
+        height:64px;
+    }
+    .other .avatar{
+        margin-left:10px;
+    }
+    .mine .avatar{
+        margin-right:10px;
+    }
+    .other span{
+        border: 10px solid;
+        border-color: transparent #FFFFFF transparent transparent ;
+        margin-top: 10px;
+    }
+    .mine span{
+        border: 10px solid;
+        border-color: transparent  transparent transparent #32CD32;
+        margin-top: 10px;
+    }
+    .other>.content{
+        background-color: #FFFFFF;
+
+    }
+    .mine>.content{
+        background-color: #32CD32;
+
+    }
+    div.content{
+        min-width: 60px;
+        clear: both;
+        display: inline-block;
+        padding: 16px 16px 16px 10px;
+        margin: 0 0 20px 0;
+        font: 16px/20px 'Noto Sans', sans-serif;
+        border-radius: 10px;
+
+        min-height: 64px;
+    }
+    .content>img.pic{
+        width: 100%;
+        margin:3px 3px 3px 3px;
+    }
+    .content>img.audio{
+        width: 32px;
+        color: white;
+    }
+    #panels{
+        background-color: #FFFFFF;
+        display: flex;
+        position: fixed;
+        bottom: 50px;
+    }
+    .doutures{
+        flex-direction: row;
+        flex-wrap: wrap;
+        display: flex;
+    }
+    .doutures img{
+        margin: 10px 10px 10px 10px;
+    }
+    .doutupkg{
+        flex-direction: row;
+        flex-wrap: wrap;
+        display: flex;
+    }
+    .plugins{
+        flex-direction: row;
+        flex-wrap: wrap;
+        display: flex;
+    }
+    .plugin{
+        padding: 10px 10px 10px 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .plugin img{
+        width: 40px;
+    }
+    .plugin p{
+        text-align: center;
+        font-size: 16px;
+    }
+    .doutupkg img{
+        width: 32px;
+        height: 32px;
+        margin: 5px 5px 5px 5px;
+    }
+    .upload{
+        width: 64px;
+        height: 64px;
+        position: absolute;
+        top: 1px;
+        opacity:0;
+    }
+    .tagicon{
+        width: 32px;
+        height:32px;
+    }
+    
+    .small{
+        width: 32px;
+        height:32px;
+    }
+    .middle{
+        width: 64px;
+        height:64px;
+    }
+    .large{
+        width: 96px;
+        height:96px;
+    }
+    .res image{
+        width: 32px;
+        height:32px;
+    }
+</style>
+{{end}}
