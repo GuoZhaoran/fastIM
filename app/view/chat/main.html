@@ -12,7 +12,7 @@
                  -->
                 <!--单聊且是他发的item.userid=msgcontext.dstid && 发给我的 item.dstid=myid 或者是我item.userid= myid发的,&&发给他的item.dstid= msgcontext.dstid 我发给他的  -->
                 <li class="chat " :class="item.ismine?'mine':'other'" v-for="item in msglist"
-                    v-if="item.msg.cmd==msgcontext.cmd && (( item.msg.cmd==10 &&  (item.ismine? item.msg.dstid==msgcontext.dstid : item.msg.dstid==msgcontext.userid )) || ( item.msg.cmd==11 &&  (item.msg.dstid==msgcontext.dstid))) ">
+                    v-if="item.msg.cmd==msgcontext.cmd && (( item.msg.cmd==10 &&  (item.ismine? item.msg.dstid==msgcontext.dstid : item.msg.userid==msgcontext.dstid )) || ( item.msg.cmd==11 &&  (item.msg.dstid==msgcontext.dstid))) ">
 
                     <div>
                         <img class="avatar" :src="item.user.avatar ||'/asset/images/avatar0.png'"/>
